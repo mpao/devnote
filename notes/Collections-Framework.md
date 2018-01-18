@@ -137,6 +137,8 @@ per la creazione di collezioni reali
 |[ArrayDeque](https://docs.oracle.com/javase/9/docs/api/java/util/ArrayDeque.html) | estende `AbstractCollection` ed implementa l'interfaccia `Deque` creando una [coda](https://it.wikipedia.org/wiki/Coda_(informatica)) a dimensioni dinamiche |
 |[EnumSet](https://docs.oracle.com/javase/9/docs/api/java/util/EnumSet.html) | estende `AbstractSet` e implementa l'interfaccia `Set` per essere utilizzata con elementi `enum` |
 
+![classes](../resources/collection-framework.png)
+
 # 4. Iterator e altre interfacce del framework
 
 L'interfaccia [Iterator](https://docs.oracle.com/javase/9/docs/api/java/util/Iterator.html) permette di scorrere gli elementi di una collezione. `ListIterator` estente `Iterator` e permette l'attraversamento bidirezionale di una collezione e la modifica degli elementi in essa contenuti. Da ogni collezione è possibile creare un Iterator/ListIterator attraverso il metodo `iterator()` dell'interfaccia `Collection` come nell'esempio:
