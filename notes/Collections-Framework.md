@@ -137,7 +137,92 @@ per la creazione di collezioni reali
 |[ArrayDeque](https://docs.oracle.com/javase/9/docs/api/java/util/ArrayDeque.html) | estende `AbstractCollection` ed implementa l'interfaccia `Deque` creando una [coda](https://it.wikipedia.org/wiki/Coda_(informatica)) a dimensioni dinamiche |
 |[EnumSet](https://docs.oracle.com/javase/9/docs/api/java/util/EnumSet.html) | estende `AbstractSet` e implementa l'interfaccia `Set` per essere utilizzata con elementi `enum` |
 
+# 4. Iterator e altre interfacce del framework
 
+L'interfaccia [Iterator](https://docs.oracle.com/javase/9/docs/api/java/util/Iterator.html) permette di scorrere gli elementi di una collezione. `ListIterator` estente `Iterator` e permette l'attraversamento bidirezionale di una collezione e la modifica degli elementi in essa contenuti. Da ogni collezione è possibile creare un Iterator/ListIterator attraverso il metodo `iterator()` dell'interfaccia `Collection` come nell'esempio:
 
+```java
+Iterator<Object> iterator = mycollection.iterator();
+while( iterator.hasNext() ){
+  Object e = iterator.next();
+  System.out.println( e.toString() );
+}
+```
 
+Se non serve modificare gli elementi, o lo scorrimenti in ordine inverso, è sufficiente Iterator e per esso esiste un alternativa spesso più conveniente per scorrere gli elementi in lettura: il ciclo **For-Each**
 
+```java
+for( Object o : mycollection ){
+  //do reading stuff
+}
+```
+
+Con Java 8 viene introdotto [Spliterator](https://docs.oracle.com/javase/9/docs/api/java/util/Spliterator.html) che si differenzia per l'abilità di supportare l'esecuzione parallela ed un approccio più moderno basato sulla sintassi lambda e gli stream.
+
+```Java
+Spliterator<Object> spliterator = mycollection.spliterator();
+while( spliterator.tryAdvance( (o) -> System.out.println( o.toString() ) );
+```
+
+# 5. Map
+L'interfaccia [Map](https://docs.oracle.com/javase/9/docs/api/java/util/Map.html) definisce la natura di un oggetto *map*, ovvero una struttura che contiene elementi con una associazione chiave/valore, in un la ricerca e l'accesso viene fatto attraverso l'oggetto *chiave*. Tale chiave è univoca nella collezione, mentre i valori possono essere duplicati. Non implementa `Iterator`
+
+|Interfaccia | Descrizione |
+|------------|:------------|
+|Map  | Maps con chiave univoca associata ad un valore |
+|Map.Entry | Descrive un elemento ( la coppia key/value ) contenuto in Map ed è una classe interna a Map |
+|SortedMap | estende `Map`, mantenendo le chiavi in ordine ascendente |
+|NavigableMap | estende `SortedMap` per la ricerca di entry basata sulla corrispondenza più vicina |
+
+Nonostante Map faccia parte del *Collections Framework*, le maps *non sono collezioni poichè non implementano l'interfaccia `Collection`*.
+In ogni caso, è possibile ottenere una collection da una map attraverso il metodo `entrySet()` che restituisce un `Set` contenente gli elementi della map. Modificare la collezione ottenuta con `map.entrySet()` modifica anche la map originaria ed è per questo legate che Map appartiene al framework
+
+## 5.1 Le classi di Map
+
+Queste sono le classi che forniscono l'implementazione dell'interfaccia Map
+
+|Classe | Descrizione |
+|------------|:------------|
+|AbstractMap | è la superclasse per tutte le classi concrete e implementa buona parte di `Map` |
+|[EnumMap](https://docs.oracle.com/javase/9/docs/api/java/util/EnumMap.html) | estende `AbstractMap` e implementa l'interfaccia `Map`, specifica per l'utilizzo di oggetti enum come chiavi |
+|[TreeMap](https://docs.oracle.com/javase/9/docs/api/java/util/TreeMap.html) | estende `AbstractMap` e implementa l'interfaccia `NavigableMap` per l'utilizzo di map con strutture ad albero. Gli elementi sono ordinati in ordine ascendente di chiave, poiché implementa una interfaccia che discende da SortedMap |
+|[HashMap](https://docs.oracle.com/javase/9/docs/api/java/util/HashMap.html) | estende `AbstractMap` e implementa l'interfaccia `Map` per l'utilizzo di hash table il cui tempo di accesso agli elementi è costante anche per set molto grandi. L'ordine di inserimento non corrisponde a nessun ordinamento interno, in altre parole, gli elementi non sono ordinati.|
+|[LinkedHashMap](https://docs.oracle.com/javase/9/docs/api/java/util/LinkedHashMap.html) | estende `HashMap` mantenendo gli elementi secondo l'ordine di inserimento | 
+|[WeakHashMap](https://docs.oracle.com/javase/9/docs/api/java/util/WeakHashMap.html) | estende `AbstractMap` per l'utilizzo di hash table a chiavi deboli, ovvero il garbage collector può raccogliere un elemento di cui la chiave non è utilizzata |
+|[IdentityHashMap](https://docs.oracle.com/javase/9/docs/api/java/util/IdentityHashMap.html) | estende `AbstractMap` e implementa l'interfaccia `Map`. È simile ad HashMap ad eccezione che usa la *reference equality* per comparare gli elementi al suo interno |
+
+# 6. Algoritmi, le classi Collections e Arrays
+
+Il framework Collections mette a disposizione diversi algoritmi applicabili alle collezioni e alle map. Questi algoritmi sono definiti come metodi statici all'interno della classe [Collections](https://docs.oracle.com/javase/9/docs/api/java/util/Collections.html) che, come riportato dalla documentazione, esiste solo per mettere a disposizione tali metodi statici per operare sulle collezioni.
+
+Sono numerosi, impossibile riportarli tutti qui, ma un esempio sono `sort()`, `max()`, `min()` e via discorrendo.
+Un esempio, in cui una lista ordinata viene mischiata casualmente con `shuffle( List<?> list )`, viene mandato in output il
+valore minimo e il valore massimo all'interno della lista.
+
+```java
+LinkedList<Integer> list = new LinkedList<Integer>();
+Collections.shuffle(list);
+System.out.println( Collections.min(list) );
+System.out.println( Collections.max(list) );
+```
+
+## 6.1 Arrays
+
+La classe [Arrays](https://docs.oracle.com/javase/9/docs/api/java/util/Arrays.html) mette a disposizione svariati metodi statici per quando si opera sugli array utili a colmare la distanza tra collezioni ed array. **Non fa parte del framework**, ma poiché il legame *logico* tra collezioni ed array esiste, è opportuna una menzione. Come per Collections, i metodi sono numerosi, ed è meglio riferirsi sempre alla documentazione, ma un esempio sui metodi più usati è forse auto esplicativo
+
+```java
+List<String> list = Arrays.asList( array );
+Arrays.sort(array);
+```
+
+# 7. Conclusione, classi e interfacce legacy
+
+E qui si chiude il capitolo sul Collection Framework. 
+Per finire, si fa riferimento ad alcune classi incluse in `java.utils` nelle precedenti versioni di Java che non includevano ancora il framework in oggetto che è andato a sostituirle e migliorle. Le riporto per completezza, ma si spera di non averci mai a che fare :)
+
+- [interface Enumeration<E>](https://docs.oracle.com/javase/9/docs/api/java/util/Enumeration.html)
+- [class Vector<E>](https://docs.oracle.com/javase/9/docs/api/java/util/Vector.html)
+- [class Stack<E>](https://docs.oracle.com/javase/9/docs/api/java/util/Stack.html)
+- [abstract class Dictionary<K,V>](https://docs.oracle.com/javase/9/docs/api/java/util/Dictionary.html)
+- [class Hashtable<K,V>](https://docs.oracle.com/javase/9/docs/api/java/util/Hashtable.html)
+- [class Properties()](https://docs.oracle.com/javase/9/docs/api/java/util/Properties.html)
