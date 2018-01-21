@@ -9,3 +9,6 @@ in ordine sparso</p>
 - **[Collections Framework](notes/Collections-Framework.md)**, note su collezioni e strutture dati in Java<br/>
 *#map, #list, #array, #arraylist, #queue, ...*
 
+- **[Lambda Expression](notes/Lambda-Expressions.md)** utilizzo e teoria, il package `java.util.function`<br/>
+*#lambda, #functional, #jdk8*
+
