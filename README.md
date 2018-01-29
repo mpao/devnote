@@ -12,3 +12,6 @@ in ordine sparso</p>
 - **[Lambda Expression](notes/Lambda-Expressions.md)** utilizzo e teoria, il package `java.util.function`<br/>
 *#lambda, #functional, #jdk8*
 
+- **[Stream](notes/Stream.md)** note ed esempi per l'utilizzo degli Stream<br/>
+*#stream, #functional, #jdk8, #map*
+
