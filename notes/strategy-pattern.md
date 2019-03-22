@@ -21,7 +21,7 @@ questa interfaccia per invocare l'algoritmo definito da un *ConcreteStragedy*
 * `Context`:  è configurato con un oggetto *ConcreteStrategy*, contiene un riferimento ad un oggetto *Strategy*,
 definisce un metodo che permette a *Strategy* di accedere alla propria struttura dati
 
-![strategy](resources/strategy.png)
+![strategy](../resources/strategy.png)
 
 **Conseguenze**
 
