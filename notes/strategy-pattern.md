@@ -151,4 +151,39 @@ fun main(){
     println("I'm a dog and ${animal_1.fly()}")
     println("I'm a bird and ${animal_2.fly()}")
 }
+
+/* * * * * * * *
+ * Kotlin idiomatic Style
+ * * * * * * * */
+//Strategy
+object FlyingKotlin{
+    //ConcreteStrategy
+    val flying = "I can fly"
+    val cantFlying = "I cannot fly"
+}
+
+//Context
+abstract class Animal{
+    abstract val flyAbility: String
+    val fly = fun(): String {
+        return flyAbility
+    }
+}
+
+//Context
+class Dog: Animal(){
+    override val flyAbility = FlyingKotlin.cantFlying
+}
+
+//Context
+class Bird: Animal(){
+    override val flyAbility = FlyingKotlin.flying
+}
+
+fun main(){
+    val animal_1: Animal = Dog();
+    val animal_2: Animal = Bird();
+    println("I'm a dog and ${animal_1.fly()}")
+    println("I'm a bird and ${animal_2.fly()}")
+}
 ```
