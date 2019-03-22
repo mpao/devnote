@@ -106,4 +106,49 @@ fun main(){
 }
 ```
 
+Un altro esempio più classico
 
+```kotlin
+/* * * * * * * *
+ * Java Style
+ * * * * * * * */
+//Strategy
+interface FlyingDescriptor{
+    fun fly(): String
+}
+
+//ConcreteStrategy
+class Flying: FlyingDescriptor{
+    override fun fly() = "I can fly"
+}
+
+//ConcreteStrategy
+class CantFlying: FlyingDescriptor{
+    override fun fly() = "I cannot fly"
+}
+
+//Context
+abstract class Animal{
+    abstract val flyAbility: FlyingDescriptor
+    fun fly() = flyAbility.fly()
+}
+
+//Context
+class Dog: Animal(){
+    override val flyAbility: FlyingDescriptor
+        get() = CantFlying()
+}
+
+//Context
+class Bird: Animal(){
+    override val flyAbility: FlyingDescriptor
+        get() = Flying()
+}
+
+fun main(){
+    val animal_1: Animal = Dog();
+    val animal_2: Animal = Bird();
+    println("I'm a dog and ${animal_1.fly()}")
+    println("I'm a bird and ${animal_2.fly()}")
+}
+```
