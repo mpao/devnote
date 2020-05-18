@@ -15,3 +15,6 @@ in ordine sparso</p>
 - **[Stream](notes/Stream.md)** note ed esempi per l'utilizzo degli Stream<br/>
 *#stream, #functional, #jdk8, #map*
 
+- **[JavaFX](notes/JavaFX.md)** introduzione a JavaFX<br/>
+#ui, #javafx
+
